@@ -59,15 +59,6 @@
   ];
 
   const customerNames = ["민지", "도윤", "하린", "지후", "서아", "유준", "나윤", "이준", "라온"];
-  const customerLooks = [
-    { skin: "#ffd0aa", hair: "#433141", coat: "#45bdd1" },
-    { skin: "#f1aa7b", hair: "#2f2e38", coat: "#ff647d" },
-    { skin: "#ffe0bd", hair: "#e17e38", coat: "#79c763" },
-    { skin: "#c78155", hair: "#8fe2d6", coat: "#9668e8" },
-    { skin: "#f8c59d", hair: "#614131", coat: "#ff9a34" },
-    { skin: "#e8a77d", hair: "#6c89d9", coat: "#54c7b0" }
-  ];
-
   const defaultSave = {
     coins: 520,
     gems: 12,
@@ -454,7 +445,7 @@
     const quantity = Math.min(3, 1 + Math.floor(Math.random() * (state.save.day >= 3 ? 3 : 2)));
     const basePatience = rush ? 26 : 37;
     const maxPatience = Math.round((basePatience + Math.random() * 12) * getPatienceBonus());
-    const look = customerLooks[Math.floor(Math.random() * customerLooks.length)];
+    const spriteIndex = Math.floor(Math.random() * 9);
 
     state.orders.push({
       id: `${Date.now()}-${Math.random().toString(16).slice(2)}`,
@@ -465,7 +456,7 @@
       maxPatience,
       patience: maxPatience,
       rush,
-      look
+      spriteIndex
     });
   }
 
@@ -755,13 +746,7 @@
               <span class="mini-fish" aria-hidden="true"></span>
               <span>x${order.remaining}</span>
             </div>
-            <div class="person" style="--skin:${order.look.skin}; --hair:${order.look.hair}; --coat:${order.look.coat}" aria-label="${order.name} ${recipe.name} 주문">
-              <span class="person-hair" aria-hidden="true"></span>
-              <span class="person-head" aria-hidden="true"></span>
-              <span class="person-eye left" aria-hidden="true"></span>
-              <span class="person-eye right" aria-hidden="true"></span>
-              <span class="person-mouth" aria-hidden="true"></span>
-            </div>
+            <div class="person sprite-${order.spriteIndex}" aria-label="${order.name} ${recipe.name} 주문"></div>
             <div class="patience-bar" aria-hidden="true"><span style="--patience:${patience}%"></span></div>
           </article>
         `;
@@ -826,22 +811,7 @@
           <button class="${classes.join(" ")}" type="button" data-index="${index}" aria-label="${getSlotLabel(slot, locked)}" style="--recipe-color:${recipe ? recipe.color : "#8b3f39"}">
             <span class="slot-label">${getSlotLabel(slot, locked)}</span>
             <span class="fish" aria-hidden="true">
-              <svg class="fish-svg" viewBox="0 0 180 112" focusable="false">
-                <path class="fish-shadow" d="M19 62c13-32 54-48 92-39 24 6 42 19 51 39-11 24-39 39-73 38-36-1-60-15-70-38Z" />
-                <path class="fish-tail-svg" d="M124 56c15-21 34-32 50-29-8 16-8 42 0 58-16 3-35-8-50-29Z" />
-                <path class="fish-body-svg" d="M13 56c10-30 48-47 86-40 28 5 47 20 57 40-11 23-37 39-70 40-35 1-63-14-73-40Z" />
-                <path class="fish-belly" d="M34 71c22 14 61 17 91 3-14 15-35 23-59 21-15-1-25-8-32-24Z" />
-                <path class="fish-fin" d="M83 68c14 2 25 8 31 18-17 1-31-5-40-15 2-3 5-4 9-3Z" />
-                <path class="fish-mouth-svg" d="M28 54c8-4 16-4 23 0" />
-                <path class="fish-gill-svg" d="M64 35c9 12 9 31-1 42" />
-                <path class="fish-ridge-svg" d="M74 26c-6 13-6 47 1 63" />
-                <path class="fish-ridge-svg" d="M96 25c-5 14-4 47 3 61" />
-                <path class="scale scale-one" d="M86 48c9-8 22-8 31 0-9 9-22 9-31 0Z" />
-                <path class="scale scale-two" d="M83 62c9-7 21-7 30 0-9 8-21 8-30 0Z" />
-                <path class="scale scale-three" d="M107 55c8-7 19-7 27 0-8 8-19 8-27 0Z" />
-                <circle class="fish-eye-svg" cx="49" cy="46" r="5" />
-                <circle class="fish-eye-shine" cx="47" cy="44" r="1.8" />
-              </svg>
+              <span class="fish-sprite"></span>
             </span>
             ${recipe ? `<span class="filling-badge">${recipe.short}</span>` : ""}
             <span class="slot-progress" aria-hidden="true"><span style="--progress:${progress}%"></span></span>

@@ -8,6 +8,7 @@
 
 ## 주요 변경
 
+- 사용자가 제공한 `assets/new` 이미지 세트를 게임 화면에 적용
 - 세로형 모바일 게임 화면으로 UI 전면 재설계
 - 겨울 거리 배경, 가판대, 마스코트, 손님 캐릭터 SVG 자산 추가
 - 손님 주문에 수량, 대기시간, 급한 주문, 보석 보상 적용
@@ -22,4 +23,8 @@
 - `index.html`: 게임 화면 구조
 - `styles.css`: 모바일 게임 UI, 캐릭터, 조리판, 상점 스타일
 - `script.js`: 주문, 조리, 상점, 미션, 저장 로직
-- `assets/`: 게임용 SVG 그래픽 자산
+- `assets/new/customer.png`: 손님 캐릭터 스프라이트
+- `assets/new/bbang.png`: 붕어빵 스프라이트
+- `assets/new/world.png`: 배경 이미지
+- `assets/new/ui.png`: 가판대와 UI 질감 이미지
+- `assets/generated/`: 체크무늬 배경을 제거한 실제 게임용 투명 컷아웃
